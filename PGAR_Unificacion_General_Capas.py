@@ -30,8 +30,17 @@ for generacion_feature in lista_ruta_archivo:
             salida_feature = os.path.join(arcpy.env.workspace, nombre_geojson_parametrizado)
             arcpy.conversion.JSONToFeatures(generacion_feature, salida_feature, 'POLYGON')
             print("geojson {0} convertido al feature {1}".format(nombre_geojson, nombre_geojson_parametrizado))
-        else:
-            print("Es la base de datos")  
+    elif pathlib.Path(generacion_feature).suffix == '.json':
+        nombre_geojson = os.path.split(generacion_feature)
+        nombre_geojson_parametrizado = (nombre_geojson[1].split(".")[0]).replace(" ","_")
+        nombre_geojson_parametrizado = (nombre_geojson[1].split(".")[0]).replace("-","_")
+        nombre_geojson_parametrizado = (nombre_geojson[1].split(".")[0]).replace("%","_")
+        if nombre_geojson_parametrizado != os.path.basename(ruta_geojson):
+            salida_feature = os.path.join(arcpy.env.workspace, nombre_geojson_parametrizado)
+            arcpy.conversion.JSONToFeatures(generacion_feature, salida_feature, 'POLYGON')
+            print("json {0} convertido al feature {1}".format(nombre_geojson, nombre_geojson_parametrizado))    
+    else:
+        print("Es la base de datos")  
         
 lista_capas_convertidas = arcpy.ListFeatureClasses()
 nombre_campo = 'nombre_capa'
