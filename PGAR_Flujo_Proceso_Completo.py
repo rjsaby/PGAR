@@ -342,7 +342,7 @@ print("____________________ INICIA _4_PGAR_Construccion_Direccion_Municipio ____
 # ** Modificación de la capa -Jurisdicción- a Municipio
 
 ruta_capa_jurisdiccion = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\Local_BD_PGAR.gdb\_6_1_Jurisdiccion_CAR"
-ruta_capa_geocodificacion = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\Local_BD_PGAR.gdb\_2_Geocodificacion_Regionales"
+ruta_capa_geocodificacion = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\Local_BD_PGAR.gdb\_6_2_Geocodificacion_Regionales"
 
 # ? --- PREPARACIÓN DIRECCIÓN ---
 df_direccion = pd.DataFrame.spatial.from_featureclass(ruta_capa_jurisdiccion)
@@ -392,7 +392,7 @@ df_direccion = df_tabla_direccion_completa[['codigo_direccion','nombre_direccion
 df_unificado_geo = pd.merge(df_geocodificacion, df_direccion, how='inner',left_on='nombre_direccion', right_on='nombre_direccion')
 
 # ** Preparación para salida final
-df_direccion_final = df_unificado_geo[['codigo_direccion','nombre_direccion','direccion','latlong','SHAPE']]
+df_direccion_final = df_unificado_geo.loc[:,['codigo_direccion','nombre_direccion','direccion','latlong','SHAPE']]
 
 # ** Creación y registro del campo -codigo_departamento-
 
@@ -725,7 +725,7 @@ for elemento in arcpy.ListFeatureClasses():
 
 print("____________________ FINALIZA _9_PGAR_Estandarizacion_Capas_Registros ____________________")
 
-# ? _10_PGAR_Modelo_Inventario
+# # ? _10_PGAR_Modelo_Inventario
 
 print("____________________ INICIA _10_PGAR_Modelo_Inventario ____________________")
 
@@ -753,6 +753,10 @@ with arcpy.da.SearchCursor(ruta_tbl_tematica,"nombre_tematica") as cursor:
     for i in cursor:
         if i[0] != '_6_1_Jurisdiccion_CAR':
             lista_tematica.append(i[0])
+
+for nuevos_dataset in arcpy.ListDatasets():
+    arcpy.Delete_management(nuevos_dataset)
+    print("Se borran los nuevos datasets, entre ellos {0}".format(nuevos_dataset))
  
 for dataset in lista_tematica:
     ruta_dataset = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.gdb" + "\\" + dataset
@@ -852,13 +856,9 @@ for dataset in arcpy.ListDatasets():
                     print("No se localiza la capa dentro del listado disponible")   
 
 # ** Renombrado de capas
-
 for dataset in lista_tematica:
-    for capas in arcpy.ListFeatureClasses(feature_dataset=dataset):
-        if ("_" in capas[0]) and ("_" in capas[3]): # !! _10_
-            arcpy.management.Rename(capas, capas[4:])
-            print("Primera modificación exitosa: {0}".format(capas))        
-        elif ("_" in capas[0]) and ("_" in capas[2]) and ("_" in capas[4]): # !! _1_4_
+    for capas in arcpy.ListFeatureClasses(feature_dataset=dataset):      
+        if ("_" in capas[0]) and ("_" in capas[2]) and ("_" in capas[4]): # !! _1_4_
             arcpy.management.Rename(capas, capas[5:])
             print("Segunda modificación exitosa: {0}".format(capas))
             print(capas[5:])
@@ -873,6 +873,12 @@ for dataset in lista_tematica:
             print("Quinta modificación exitosa: {0}".format(capas))
         else:
             print("No se renomabra la capa {0}".format(capas))
+            
+for dataset in lista_tematica:
+    for capas in arcpy.ListFeatureClasses(feature_dataset=dataset):
+        if ("_" in capas[0]) and ("_" in capas[3]): # !! _10_
+            arcpy.management.Rename(capas, capas[4:])
+            print("Primera modificación exitosa: {0}".format(capas)) 
             
 print("--------------- Finaliza cambio de nombres de las capas ----------------")
 
@@ -889,8 +895,190 @@ for dataset in arcpy.ListDatasets():
         print("No se renomabra Feature Dataset {0}".format(dataset))
 
 print("--------------- Finaliza cambio de nombres de Features Datasets ----------------")
+print("____________________ FINALIZA _10_PGAR_Modelo_Inventario ____________________")
 
-# ** Creación de relaciones M:N
+# ? _11_1_PGAR_AnalisisCapasAVR
+
+print("____________________ INICIA _11_1_PGAR_AnalisisCapasAVR ____________________")
+
+ruta_bd = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.gdb"
+arcpy.env.workspace = ruta_bd
+
+capa_riego_rural = ['Riesgo_Urbano_Inundacion','Riesgo_Rural_Incendio','Riesgo_Rural_Remocion_Masa']
+campos_actualizar = ['Riesgo']
+nombre_dataset = ['Analisis_Vulnerabilidad_Riesgo_Inundacion',
+           'Analisis_Vulnerabilidad_Riesgo_Incendio',
+           'Analisis_Vulnerabilidad_Riesgo_Remocion_Masa']
+
+for dataset in arcpy.ListDatasets():
+    for seleccion_dataset in nombre_dataset:
+        if dataset == seleccion_dataset:
+            for capa in arcpy.ListFeatureClasses(feature_dataset=dataset):
+                for seleccion_capa in capa_riego_rural:
+                    if capa == seleccion_capa:
+                        with arcpy.da.UpdateCursor(capa, campos_actualizar) as cursor:
+                            for fila in cursor:
+                                if fila[0] == 'Muy Alto':
+                                    fila[0] = 'Muy alto'
+                                elif fila[0] == 'Muy Bajo':
+                                    fila[0] = 'Muy bajo'
+                                elif fila[0] == 'Alta':
+                                    fila[0] = 'Alto'
+                                elif fila[0] == 'Baja':
+                                    fila[0] = 'Bajo'
+                                elif fila[0] == 'Media':
+                                    fila[0] = 'Medio'
+                                elif fila[0] == 'Riesgo Alto':
+                                    fila[0] = 'Alto'
+                                elif fila[0] == 'Riesgo Medio':
+                                    fila[0] = 'Medio'
+                                elif fila[0] == 'Riesgo Bajo':
+                                    fila[0] = 'Bajo'
+                                elif fila[0] == None:
+                                    fila[0] = 'Sin información'
+                                else:
+                                    print("No se ejecuta cambio")                            
+                                # ? Se actualiza el cursor con la actualización de la lista anterior
+                                cursor.updateRow(fila)
+
+# Generación de DF
+df_variables_economicas_cundinamarca = pd.read_csv("Variables_Economicas_Cundinamarca_DANE.csv", sep=";")
+
+# !! Primer Tratamiento
+df_variables_economicas_cundinamarca['codigo_municipio_dane'] = df_variables_economicas_cundinamarca.loc[:,['codigo_municipio_dane']].astype('str')
+
+# Migración a Feature Table
+nombre_tabla_variables_economicas = "tbl_variables_economicas_dane"
+ruta_salida_variables_economicas = os.path.join(arcpy.env.workspace, nombre_tabla_variables_economicas)
+df_variables_economicas_cundinamarca.spatial.to_table(location = ruta_salida_variables_economicas)
+
+# Creación de la relación entre Municipio Vs Variables Económicas
+r_municipio_variables = "r_municipio_variables"
+capa_municipio = "municipio"
+
+# ********************** Relación Capa - Temática **********************
+ruta_municipio = os.path.join(arcpy.env.workspace, capa_municipio)
+
+arcpy.management.CreateRelationshipClass(ruta_municipio, ruta_salida_variables_economicas, r_municipio_variables, 'SIMPLE', 'variable', 'municipio', 
+                                         "NONE", 'ONE_TO_MANY', "NONE", 'codigo_municipio_dane', 'codigo_municipio_dane')
+print("Creada relación: {0}".format(r_municipio_variables))
+
+# ** CREACIÓN POBLACION
+
+df_poblacion_car = pd.read_csv("poblacion_car.csv", sep=";")
+
+# !! Tratamiento
+df_poblacion_car['codigo_municipio'] = df_poblacion_car.loc[:,['codigo_municipio']].astype('str')
+
+# Migración a Feature Table
+nombre_poblacion_car = "tbl_poblacion_car"
+ruta_salida_poblacion_car = os.path.join(arcpy.env.workspace, nombre_poblacion_car)
+df_poblacion_car.spatial.to_table(location = ruta_salida_poblacion_car)
+
+# Creación de la relación entre Municipio Vs Variables Económicas
+r_municipio_poblacion = "r_municipio_poblacion"
+
+# ********************** Relación Capa - Temática **********************
+ruta_municipio = os.path.join(arcpy.env.workspace, capa_municipio)
+
+arcpy.management.CreateRelationshipClass(ruta_municipio, ruta_salida_poblacion_car, r_municipio_poblacion, 'SIMPLE', 'poblacion', 'municipio', 
+                                         "NONE", 'ONE_TO_ONE', "NONE", 'codigo_municipio_dane', 'codigo_municipio')
+print("Creada relación: {0}".format(r_municipio_poblacion))
+
+print("____________________ FINALIZA _11_1_PGAR_AnalisisCapasAVR ____________________")
+
+# ? _12_PGAR_Migracion_A_SDE
+
+print("____________________ INICIA _12_PGAR_Migracion_A_SDE ____________________")
+
+# ** Borrado de capas, tablas y relaciones en la SDE
+
+ruta_sde = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.sde"
+arcpy.env.workspace = ruta_sde
+# Listas
+dataframes = arcpy.ListDatasets()
+capas = arcpy.ListFeatureClasses()
+tablas = arcpy.ListTables()
+
+for dataframe in dataframes:
+    arcpy.Delete_management(dataframe)
+    print("Se borra dataframe {0}".format(dataframe))
+    
+for capas in capas:
+    arcpy.Delete_management(capas)
+    print("Se borra tabla {0}".format(capas))
+    
+for tabla in tablas:
+    arcpy.Delete_management(tabla)
+    print("Se borra capa {0}".format(tabla))
+    
+ruta_filegdb = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.gdb"
+arcpy.env.workspace = ruta_filegdb
+
+# ? Listado de datasets
+lista_datasets = []
+for dataset in arcpy.ListDatasets():
+    lista_datasets.append(dataset)
+    
+# ? Almacenamiento de rutas de cada una de las capas que se copiaran a base de datos .sde
+# # ** Features into Dataset
+listado_rutas_capas_into_dataset = []
+for dataset in arcpy.ListDatasets():
+    for capas in arcpy.ListFeatureClasses(feature_dataset=dataset):
+        ruta_capas_i_ds = os.path.join(ruta_filegdb,dataset,capas)
+        listado_rutas_capas_into_dataset.append(ruta_capas_i_ds)
+
+# # ** Features out Dataset
+listado_rutas_capas_out_dataset = []
+for capas in arcpy.ListFeatureClasses():
+    ruta_capas_o_ds = os.path.join(ruta_filegdb,capas)
+    listado_rutas_capas_out_dataset.append(ruta_capas_o_ds)
+    
+# ** Tables out Dataset
+listado_rutas_tablas = []
+for tablas in arcpy.ListTables():
+    ruta_tablas_o_ds = os.path.join(ruta_filegdb,tablas)
+    listado_rutas_tablas.append(ruta_tablas_o_ds)
+    
+# ** Toma el sistema de referencia de una capa en específico de la base de datos
+ruta_capa_src = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.gdb\municipio"
+
+for dataset_a_crear in lista_datasets:
+    arcpy.management.CreateFeatureDataset(ruta_sde, dataset_a_crear, spatial_reference = ruta_capa_src)
+
+# ? Copiado de capas y tablas
+
+arcpy.env.workspace = ruta_sde
+
+# ** Copiado de capas dentro de dataset
+for dataset in arcpy.ListDatasets():
+        for rutas in listado_rutas_capas_into_dataset:
+            if dataset.split(".")[1] == rutas.split("\\")[7]:
+                ruta_salida = os.path.join(arcpy.env.workspace,dataset,rutas.split("\\")[8])
+                arcpy.management.Copy(rutas, ruta_salida)
+                print("Se migra la capa {0} dentro del dataset {1}".format(rutas.split("\\")[8],dataset))
+                
+# ** Copiado de capas dentro de .sde
+for rutas in listado_rutas_capas_out_dataset:
+    nombre_salida = rutas.split("\\")[7]
+    ruta_salida = os.path.join(arcpy.env.workspace,nombre_salida)
+    arcpy.management.Copy(rutas, ruta_salida)
+    print("Se migra la capa {0}".format(rutas.split("\\")[7]))
+    
+# ** Copiado de tablas dentro de .sde
+for rutas in listado_rutas_tablas:
+    arcpy.management.Copy(rutas, rutas.split("\\")[7])
+    print("Se migra la tabla {0}".format(rutas.split("\\")[7]))
+
+print("____________________ FINALIZA _12_PGAR_Migracion_A_SDE ____________________")
+
+# ? _13_PGAR_Construccion_Relaciones
+
+print("____________________ INICIA _13_PGAR_Construccion_Relaciones ____________________")
+
+# !! RELACIONES SOBRE LA LOCAL
+
+arcpy.env.workspace = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.gdb"
 
 feature_municipio = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.gdb\municipio"
 tabla_capa = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.gdb\tbl_capa"
@@ -924,8 +1112,6 @@ ruta_csv_relacion_municipio_cuenca = r"C:\Users\rodian.saby\OneDrive\Documentos\
 arcpy.Append_management(ruta_csv_relacion_municipio_cuenca, r_municipio_cuenca, "NO_TEST")
 print(" - Se incorporan los registros de la relación: {0}".format(r_municipio_cuenca))
 
-# ** Creación de relaciones N:1
-
 tabla_tematica = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.gdb\tbl_tematica"
 tabla_direccion = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.gdb\direccion"
 tabla_departamento = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.gdb\tbl_departamento"
@@ -955,14 +1141,6 @@ arcpy.management.CreateRelationshipClass(tabla_fuente, tabla_capa, r_capa_fuente
                                          "NONE", 'ONE_TO_MANY', "NONE", 'codigo_fuente', 'codigo_fuente')
 print("Creada relación: {0}".format(r_capa_fuentes))
 
-print("____________________ FINALIZA _10_PGAR_Modelo_Inventario ____________________")
-
-# ? _11_PGAR_Construccion_Relacion_Capas_Registros
-
-print("____________________ INICIA _11_PGAR_Construccion_Relacion_Capas_Registros ____________________")
-
-# ** Relación masiva entre la -tbl_capa- y cada una de las capas
-
 arcpy.env.workspace = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.gdb"
 tabla_capa = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.gdb\tbl_capa"
 
@@ -982,5 +1160,90 @@ for datasets in arcpy.ListDatasets():
             arcpy.management.CreateRelationshipClass(tabla_capa, ruta_capa, nombre_relacion, 'SIMPLE', 'registros', 'capa', 
                                                 "NONE", 'ONE_TO_MANY', "NONE", 'codigo_capa', 'codigo_capa')
             print("Creada relación: {0}".format(nombre_relacion))
+            
+# !! RELACIONES SOBRE LA EMPRESARIAL
 
-print("____________________ FINALIZA _11_PGAR_Construccion_Relacion_Capas_Registros ____________________")
+arcpy.env.workspace = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.sde"
+
+feature_municipio = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.sde\municipio"
+tabla_capa = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.sde\tbl_capa"
+tabla_cuenca = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.sde\cuenca"
+
+# ********************** Relación Municipio - Capa **********************
+# - Creación de la estrucutura de la relación
+r_municipio_capa = "r_municipio_capa"
+arcpy.management.CreateRelationshipClass(tabla_capa, feature_municipio, r_municipio_capa, 'SIMPLE', 'capa', 'municipio', 
+                                         "NONE", 'MANY_TO_MANY', "NONE", 'codigo_capa', 'codigo_capa', 'codigo_municipio', 'codigo_municipio')
+print("Creada relación: {0}".format(r_municipio_capa))
+
+# - Creación de la vista de tabla
+ruta_csv_relacion_municipio_capa = r"C:\Users\rodian.saby\OneDrive\Documentos\docsProyectos\3.PGAR\Resultados\2.Py\r_municipio_capa.csv"
+
+# - Unificación de registros
+arcpy.Append_management(ruta_csv_relacion_municipio_capa, r_municipio_capa, "NO_TEST")
+print(" - Se incorporan los registros de la relación: {0}".format(r_municipio_capa))
+
+# ********************** Relación Municipio - Cuenca **********************
+# - Creación de la estrucutura de la relación
+r_municipio_cuenca = "r_municipio_cuenca"
+arcpy.management.CreateRelationshipClass(tabla_cuenca, feature_municipio, r_municipio_cuenca, 'SIMPLE', 'cuenca', 'municipio', 
+                                         "NONE", 'MANY_TO_MANY', "NONE", 'codigo_cuenca', 'codigo_cuenca', 'codigo_municipio', 'codigo_municipio')
+print("Creada relación: {0}".format(r_municipio_cuenca))
+
+# - Creación de la vista de tabla
+ruta_csv_relacion_municipio_cuenca = r"C:\Users\rodian.saby\OneDrive\Documentos\docsProyectos\3.PGAR\Resultados\2.Py\r_municipio_cuenca.csv"
+
+# - Unificación de registros
+arcpy.Append_management(ruta_csv_relacion_municipio_cuenca, r_municipio_cuenca, "NO_TEST")
+print(" - Se incorporan los registros de la relación: {0}".format(r_municipio_cuenca))
+
+tabla_tematica = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.sde\tbl_tematica"
+tabla_direccion = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.sde\direccion"
+tabla_departamento = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.sde\tbl_departamento"
+tabla_fuente = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.sde\tbl_fuentes"
+r_capa_tematica = "r_capa_tematica"
+r_direccion_municipio = "r_direccion_municipio"
+r_municipio_departamento = "r_municipio_departamento"
+r_capa_fuentes = "r_capa_fuentes"
+
+# ********************** Relación Capa - Temática **********************
+arcpy.management.CreateRelationshipClass(tabla_tematica, tabla_capa, r_capa_tematica, 'SIMPLE', 'capa', 'tematica', 
+                                         "NONE", 'ONE_TO_MANY', "NONE", 'codigo_tematica', 'codigo_tematica')
+print("Creada relación: {0}".format(r_capa_tematica))
+
+# ********************** Relación Dirección - Municipio **********************
+arcpy.management.CreateRelationshipClass(tabla_direccion, feature_municipio, r_direccion_municipio, 'SIMPLE', 'municipio', 'direccion', 
+                                         "NONE", 'ONE_TO_MANY', "NONE", 'codigo_direccion', 'codigo_direccion')
+print("Creada relación: {0}".format(r_direccion_municipio))
+
+# ********************** Relación Municipio - Departamento **********************
+arcpy.management.CreateRelationshipClass(tabla_departamento, feature_municipio, r_municipio_departamento, 'SIMPLE', 'municipio', 'departamento', 
+                                         "NONE", 'ONE_TO_MANY', "NONE", 'codigo_departamento', 'codigo_departamento')
+print("Creada relación: {0}".format(r_municipio_departamento))
+
+# ********************** Relación Capa - Fuentes **********************
+arcpy.management.CreateRelationshipClass(tabla_fuente, tabla_capa, r_capa_fuentes, 'SIMPLE', 'capa', 'fuente', 
+                                         "NONE", 'ONE_TO_MANY', "NONE", 'codigo_fuente', 'codigo_fuente')
+print("Creada relación: {0}".format(r_capa_fuentes))
+
+arcpy.env.workspace = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.sde"
+tabla_capa = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.sde\tbl_capa"
+
+# Proceso realizado en el archivo _9_...
+for datasets in arcpy.ListDatasets():
+    for capas in arcpy.ListFeatureClasses(feature_dataset=datasets):
+            arcpy.management.AlterField(capas, 'codigo_capa', 'codigo_capa_borrar')
+            arcpy.management.AddField(capas, 'codigo_capa', 'DOUBLE', field_alias = 'Código Capa')
+            arcpy.management.CalculateField(capas, 'codigo_capa', '!codigo_capa_borrar!')
+            print("-Código Capa- actualizado para: {0}".format(capas))
+            
+for datasets in arcpy.ListDatasets():
+    for capas in arcpy.ListFeatureClasses(feature_dataset=datasets):        
+        ruta_capa = os.path.join(arcpy.env.workspace,datasets,capas)
+        if capas != 'municipio' or capas != 'cuenca':
+            nombre_relacion = "r_capa_" + capas
+            arcpy.management.CreateRelationshipClass(tabla_capa, ruta_capa, nombre_relacion, 'SIMPLE', 'registros', 'capa', 
+                                                "NONE", 'ONE_TO_MANY', "NONE", 'codigo_capa', 'codigo_capa')
+            print("Creada relación: {0}".format(nombre_relacion))
+
+print("____________________ FINALIZA _13_PGAR_Construccion_Relaciones ____________________")

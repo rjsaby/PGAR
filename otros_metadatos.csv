@@ -205,10 +205,10 @@ _19_Geologia_Geomorfologia;_19_11_Zonas_Potenciales_Integradas_Grupo_5;En este m
 _19_Geologia_Geomorfologia;_19_12_Zonas_Potenciales_Integradas_Grupo_6;Este conjunto de datos presenta la clasificación de zonas potenciales de recursos minerales, para el grupo de Minerales Energéticos de Colombia;2019-03-14;Servicio Geologico Colombiano
 _19_Geologia_Geomorfologia;_19_13_Pozos_Banco_Informacion_Petrolera;El feature de pozos de BIP corresponde a la capa de pozos que se crean a partir de la información entregada por las compañías operadoras en particular forma-4cr, forma-6cr, forma-10acr y registro de pozos. El feature captura la información de coordenadas geográficas de superficie y fondo y los principales atributos del pozo como objeto geográfico;2022-09-13;Servicio Geologico Colombiano
 _19_Geologia_Geomorfologia;_19_14_Inventario_Movimientos_Masa;El inventario de movimientos en masa, contiene los datos referentes a la información levantada en campo y verificada por el grupo de movimientos en masa del SGC en este inventario se presentan los datos de inestabilidad del terreno entre otros;2020-03-10;Servicio Geologico Colombiano
-;;;;
-;;;;
-;;;;
-;;;;
+_6_Jurisdiccion_CAR;_6_3_Zonas_PGAR;Selección de Zonas PGAR, insumos para plan de socialización con interesados;2023-01-30;Economía Urbana
+_6_Jurisdiccion_CAR;_6_4_Limite_Corporacion_CAR;Límite de la jurisdicción, extraido de la capa de origina de jurisdicciones;2023-01-30;Economía Urbana
+_6_Jurisdiccion_CAR;_6_5_Corporaciones_Colindantes;Corporaciones colindantes a la CAR Cundinamarca;2023-01-30;Economía Urbana
+_6_Jurisdiccion_CAR;_6_6_Municipios_Colindantes_Corporacion_CAR;Municipios colindantes a la corporación CAR;2023-01-30;Economía Urbana
 ;;;;
 ;;;;
 ;;;;
