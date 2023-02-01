@@ -187,7 +187,7 @@ a. Un documento técnico que aporte a los manuales metodológicos para la delimi
 b. Realizar el análisis de transformación de humedales a nivel nacional y
 c. Aportes a la clasificación de humedales partiendo de la información geomorfológica generada durante el primer año de ejecución del proyecto delimitación páramos y humedales, con el fin de aportar insumos técnicos y recomendaciones que contribuyan a la delimitación de humedales y desarrollo de actividades enmarcadas en el Convenio No. 13 - 014 (FA.005 de 2013) suscrito entre el Fondo Adaptación y el Instituto de Investigación de Recursos Biológicos “Alexander von Humboldt”.";2015-04-30;Instituto de Investigación de Recursos Biológicos Alexander von Humboldt
 _3_Cuencas_Hidrograficas;_3_4_Drenaje_Sencillo;Drenajes sencillos, escala 1:100.000;2022-04-01;Instituto Geográfico Agustín Codazzi
-_3_Cuencas_Hidrograficas;_3_5_Canal_Sencillo;Canales sencillos, escala 1:100.000;2022-04-01;Instituto Geográfico Agustín Codazzi
+_3_Cuencas_Hidrograficas;_3_5_Canal_Sencillo;Canales sencillos, escala 1:25.000;2015-12-31;Instituto Geográfico Agustín Codazzi
 _3_Cuencas_Hidrograficas;_3_6_Drenaje_Doble;Drenajes dobles, escala 1:100.000;2022-04-01;Instituto Geográfico Agustín Codazzi
 _19_Geologia_Geomorfologia;_19_1_Fallas_Geologicas;"Las unidades representadas en el mapa son unidades cronoestratigráficas y fueron agrupadas de acuerdo a la edad y la litología de los materiales. Para la edad se utilizó como referencia la Carta Cronoestratigráfica Internacional 2020 y para la división litológica se diferenciaron las rocas y los depósitos. Las rocas se representaron según su clasificación principal: ígneas, metamórficas y sedimentarias; también, se consideraron las rocas volcanoclásticas como un tipo adicional. Los depósitos se dividieron en paludal, aluvial, volcanoclástico, morrénico, de terraza, de abanico, de caída de ceniza, de dunas y de costas. Las rocas ígneas se clasificaron por ambiente de formación en volcánicas, hipoabisales y plutónicas; estas a su vez se subdividieron por composición en ultramáficas, máficas, intermedias y félsicas. Las rocas metamórficas se separaron por grado de metamorfismo en muy bajo, bajo, medio y alto grado; y se diferenciaron las de alta presión y, por su importancia económica, los mármoles. Las rocas sedimentarias y volcanoclásticas se agruparon según su ambiente de formación. Las primeras se clasificaron en continental, transicional, continental–transicional, continental–transicional–marino, transicional–marino y marino, mientras que las segundas, en continental, continental–transicional y marino.";2022-06-15;Servicio Geologico Colombiano
 _19_Geologia_Geomorfologia;_19_2_Pliegues;Pliegues alojados en el mapa geológico de Colombia, año de actualización 2018;2018-09-25;Servicio Geologico Colombiano
@@ -209,31 +209,42 @@ _6_Jurisdiccion_CAR;_6_3_Zonas_PGAR;Selección de Zonas PGAR, insumos para plan 
 _6_Jurisdiccion_CAR;_6_4_Limite_Corporacion_CAR;Límite de la jurisdicción, extraido de la capa de origina de jurisdicciones;2023-01-30;Economía Urbana
 _6_Jurisdiccion_CAR;_6_5_Corporaciones_Colindantes;Corporaciones colindantes a la CAR Cundinamarca;2023-01-30;Economía Urbana
 _6_Jurisdiccion_CAR;_6_6_Municipios_Colindantes_Corporacion_CAR;Municipios colindantes a la corporación CAR;2023-01-30;Economía Urbana
-;;;;
-;;;;
-;;;;
-;;;;
-;;;;
-;;;;
-;;;;
-;;;;
-;;;;
-;;;;
-;;;;
-;;;;
-;;;;
-;;;;
-;;;;
-;;;;
-;;;;
-;;;;
-;;;;
-;;;;
-;;;;
-;;;;
-;;;;
-;;;;
-;;;;
-;;;;
-;;;;
-;;;;
+_19_Geologia_Geomorfologia;_19_15_Amenaza_Procesos_Morfodinamicos;Los procesos morfodinámicos corresponden a una serie de acciones sucesivas y/o simultaneas y sinérgicas a través de las cuales los agentes morfogenéticos, principalmente los externos, son capaces de modelar las formas de la superficie terrestre.;2015-12-31;Corporación Autónoma Regional de Cundinamarca
+_4_Suelos;_4_11_Aptitud_Suelo;Aptitud suelos cundinamarca, clima y humedad;2015-12-31;Corporación Autónoma Regional de Cundinamarca
+_4_Suelos;_4_12_Cobertura_Tierra_CAR;Clasificación de coberturas tales como pastos, bosques, RENA, rastrojos, entre otros;2015-12-31;Corporación Autónoma Regional de Cundinamarca
+_4_Suelos;_4_13_Cobertura_Vegetal_CAR;Clasificación en clima, formación y tipo de cobertura vegetal;2015-12-31;Corporación Autónoma Regional de Cundinamarca
+_19_Geologia_Geomorfologia;_19_16_Geologia;Formaciones, acuiferos y productividad asociado a la geología de la región CAR Cundinamarca;2015-12-31;Corporación Autónoma Regional de Cundinamarca
+_19_Geologia_Geomorfologia;_19_17_Geomorfologia;Modos de relieve, geoestructuras, regiones geomorfolóficas, entre otra información;2015-12-31;Corporación Autónoma Regional de Cundinamarca
+_4_Suelos;_4_14_Grado_Erosion;Clasificación de los grados de erosión (ligera, moderada, severa);2015-12-31;Corporación Autónoma Regional de Cundinamarca
+_19_Geologia_Geomorfologia;_19_18_Solicitud_Titulacion_Minera;Solicitud de Titulación Minera;2015-12-31;Corporación Autónoma Regional de Cundinamarca
+_19_Geologia_Geomorfologia;_19_19_Titulos_Mineros;Títulos Mineros;2015-12-31;Corporación Autónoma Regional de Cundinamarca
+_19_Geologia_Geomorfologia;_19_20_Area_Exclusion_Minera_Resolucion_705_761_2013;Áreas de exclusión minera según resoluciones 705 y 761 de 2013;2015-12-31;Corporación Autónoma Regional de Cundinamarca
+_3_Cuencas_Hidrograficas;_3_7_Quebradas;Quebradas, escala 1:25.000;2015-12-31;Instituto Geográfico Agustín Codazzi
+_3_Cuencas_Hidrograficas;_3_8_Rio_Doble;Rios, escala 1:25.000;2015-12-31;Instituto Geográfico Agustín Codazzi
+_3_Cuencas_Hidrograficas;_3_9_Pantano;Pantanos, escala 1:25.000;2015-12-31;Instituto Geográfico Agustín Codazzi
+_3_Cuencas_Hidrograficas;_3_10_Laguna;Laguna, escala 1:25.000;2015-12-31;Instituto Geográfico Agustín Codazzi
+_3_Cuencas_Hidrograficas;_3_11_Isla;Isla, escala 1:25.000;2015-12-31;Instituto Geográfico Agustín Codazzi
+_3_Cuencas_Hidrograficas;_3_12_Embalse;Embalse, escala 1:25.000;2015-12-31;Instituto Geográfico Agustín Codazzi
+_3_Cuencas_Hidrograficas;_3_13_Cienaga;Cienaga, escala 1:25.000;2015-12-31;Instituto Geográfico Agustín Codazzi
+_3_Cuencas_Hidrograficas;_3_14_Canal_Doble;Canal Doble, escala 1:25.000;2015-12-31;Instituto Geográfico Agustín Codazzi
+_19_Geologia_Geomorfologia;_19_21_Minas;Minas, escala 1:25:000;2015-12-31;Instituto Geográfico Agustín Codazzi
+_19_Geologia_Geomorfologia;_19_22_Tuberia;Tuberías, escala 1:25:000;2015-12-31;Instituto Geográfico Agustín Codazzi
+_14_Ecosistema;_14_10_Bosque;Bosque, escala 1:25:000;2015-12-31;Instituto Geográfico Agustín Codazzi
+_16_Infraestructura;_16_6_Camino;Caminos, escala 1:25:000;2015-12-31;Instituto Geográfico Agustín Codazzi
+_16_Infraestructura;_16_7_Carretera;Carretera, escala 1:25.000;2015-12-31;Instituto Geográfico Agustín Codazzi
+_14_Ecosistema;_14_11_Negocios_Verdes;Producción Más Limpia y Negocios Verdes de la Dirección de Cultura Ambiental y Servicio al Ciudadano de la Corporación. Somos un grupo técnico y de gestión al interior de las CAR que tiene como misión posicionar los negocios verdes como un nuevo renglón de la economía regional;2020-01-01;Corporación Autónoma Regional de Cundinamarca
+_3_Cuencas_Hidrograficas;_3_15_Red_Piezometros;Red piezometros;2020-01-01;Corporación Autónoma Regional de Cundinamarca
+_3_Cuencas_Hidrograficas;_3_16_Datos_Piezometros;Datos piezometros;2020-01-01;Corporación Autónoma Regional de Cundinamarca
+_20_Biodiversidad;_20_1_Aves;Datos Base de datos Módulo de Biodiversidad GeoAmbiental, estructurado según Darwing Core - SIB Colombia;2020-01-01;Corporación Autónoma Regional de Cundinamarca
+_20_Biodiversidad;_20_2_Amphibia;Datos Base de datos Módulo de Biodiversidad GeoAmbiental, estructurado según Darwing Core - SIB Colombia;2020-01-01;Corporación Autónoma Regional de Cundinamarca
+_20_Biodiversidad;_20_3_Gastropoda;Datos Base de datos Módulo de Biodiversidad GeoAmbiental, estructurado según Darwing Core - SIB Colombia;2020-01-01;Corporación Autónoma Regional de Cundinamarca
+_20_Biodiversidad;_20_4_Malacostraca;Datos Base de datos Módulo de Biodiversidad GeoAmbiental, estructurado según Darwing Core - SIB Colombia;2020-01-01;Corporación Autónoma Regional de Cundinamarca
+_20_Biodiversidad;_20_5_Mammalia;Datos Base de datos Módulo de Biodiversidad GeoAmbiental, estructurado según Darwing Core - SIB Colombia;2020-01-01;Corporación Autónoma Regional de Cundinamarca
+_20_Biodiversidad;_20_6_Reptilia;Datos Base de datos Módulo de Biodiversidad GeoAmbiental, estructurado según Darwing Core - SIB Colombia;2020-01-01;Corporación Autónoma Regional de Cundinamarca
+_20_Biodiversidad;_20_7_Plantae;Datos Base de datos Módulo de Biodiversidad GeoAmbiental, estructurado según Darwing Core - SIB Colombia;2020-01-01;Corporación Autónoma Regional de Cundinamarca
+_2_Cambio_Climatico;_2_18_Estaciones_Monitoreo_Calidad_Aire;Estaciones que monitorean la calidad del aire, fuente Grupo Calidad del Aire, Dirección de Recursos Naturales, 2018.;2020-01-01;Corporación Autónoma Regional de Cundinamarca
+_16_Infraestructura;_16_8_Vias;Vías de la cartografía base a escala 1:100.000 del IGAC para la jurisdicción CAR;2020-01-01;Instituto Geográfico Agustín Codazzi
+_3_Cuencas_Hidrograficas;_3_17_Unidad_Hidrogeologica_Agua_Superficial;UHA Superficial;2015-12-31;Corporación Autónoma Regional de Cundinamarca
+_3_Cuencas_Hidrograficas;_3_18_Unidad_Hidrogeologica_Agua_Subterranea;UHA Subterranea;2015-12-31;Corporación Autónoma Regional de Cundinamarca
+_3_Cuencas_Hidrograficas;_3_19_Censo_Usuarios_Agua_Subterranea;Reporte Censo de Usuarios de Aguas Subterráneas - Sabana de Bogotá;2023-01-31;Corporación Autónoma Regional de Cundinamarca
+_3_Cuencas_Hidrograficas;_3_20_Caudales_Concesionados_Fuente_Hidrica;Caudales concesionados por fuente hídrica;2023-01-31;Corporación Autónoma Regional de Cundinamarca

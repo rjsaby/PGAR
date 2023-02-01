@@ -15,7 +15,7 @@ print("____________________ INICIA _2_PGAR_Construccion_Inventario _____________
 
 # ** Ubicación y registro de archivos .gdb dentro de múltiples directorios
 
-ruta_padre = r"C:\PUBLIC\PGAR\Insumos\Capas_Geograficas"
+ruta_padre = r"D:\PUBLIC\PGAR\Insumos\Capas_Geograficas"
 nombre_directorios = os.listdir(ruta_padre)
 rutas_workspace = []
 
@@ -52,7 +52,8 @@ clasificacion_tematica = {'_1_POMCA': 1,
                           '_16_Infraestuctura':16,
                           '_17_Desarrollo_Rural': 17,
                           '_18_Incendios':18,
-                          '_19_Geologia_Geomorfologia':19}
+                          '_19_Geologia_Geomorfologia':19,
+                          '_20_Biodiversidad':20}
 
 for espacio_trabajo in rutas_workspace:
     arcpy.env.workspace = espacio_trabajo
@@ -79,7 +80,7 @@ df_tematica.rename({'index':'nombre_tematica', 0:'codigo_tematica'}, axis=1, inp
 
 # ** Exportar capa -tbl_tematica- a FileGDB
 
-ruta_capas_w_municipio = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\Local_BD_PGAR.gdb"
+ruta_capas_w_municipio = r"D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\Local_BD_PGAR.gdb"
 nombre_tabla_capa = 'tbl_tematica'
 ruta_salida_tabla_tematica = os.path.join(ruta_capas_w_municipio, nombre_tabla_capa)
 df_tematica.spatial.to_table(location = ruta_salida_tabla_tematica)
@@ -87,7 +88,7 @@ print("----------------------------- Se crea la tabla: -tbl_tematica- en Base de
 
 # ** Parametrización de Nombre Final Capa
 
-ruta_bd_local = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\Local_BD_PGAR.gdb"
+ruta_bd_local = r"D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\Local_BD_PGAR.gdb"
 
 nombre_campo_capa_final = 'nombre_capa_final'
 
@@ -210,7 +211,7 @@ df_fuentes = df_fuentes.append({'codigo_fuente': 0, 'nombre_fuente':'Sin informa
 # ** Esportada de DF a Feature Table
 
 nombre_tabla_fuentes = 'tbl_fuentes'
-ruta_bd = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\Local_BD_PGAR.gdb"
+ruta_bd = r"D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\Local_BD_PGAR.gdb"
 ruta_tabla_fuentes = os.path.join(ruta_bd, nombre_tabla_fuentes)
 df_fuentes.spatial.to_table(location=ruta_tabla_fuentes)
 print("------------------------------ Se crea la tabla -tbl_fuentes- ------------------------------")
@@ -228,7 +229,7 @@ print("---------------------------------------- Data frame creado --------------
 
 # ** Generación de DataFrame Global Total con la unificación de las tres columnas principales
 
-ruta_capas_w_municipio = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\Local_BD_PGAR.gdb"
+ruta_capas_w_municipio = r"D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\Local_BD_PGAR.gdb"
 
 arcpy.env.workspace = ruta_capas_w_municipio
 
@@ -341,8 +342,8 @@ print("____________________ INICIA _4_PGAR_Construccion_Direccion_Municipio ____
 
 # ** Modificación de la capa -Jurisdicción- a Municipio
 
-ruta_capa_jurisdiccion = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\Local_BD_PGAR.gdb\_6_1_Jurisdiccion_CAR"
-ruta_capa_geocodificacion = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\Local_BD_PGAR.gdb\_6_2_Geocodificacion_Regionales"
+ruta_capa_jurisdiccion = r"D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\Local_BD_PGAR.gdb\_6_1_Jurisdiccion_CAR"
+ruta_capa_geocodificacion = r"D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\Local_BD_PGAR.gdb\_6_2_Geocodificacion_Regionales"
 
 # ? --- PREPARACIÓN DIRECCIÓN ---
 df_direccion = pd.DataFrame.spatial.from_featureclass(ruta_capa_jurisdiccion)
@@ -408,7 +409,7 @@ df_tabla_municipio_estandarizado = df_tabla_municipio.loc[:,['codigo_municipio',
 
 # ** Exportar DF a Feature Class
 
-ruta_bd = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\Local_BD_PGAR.gdb"
+ruta_bd = r"D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\Local_BD_PGAR.gdb"
 
 # --- PREPARACIÓN DIRECCION ---
 nombre_tabla_direccion = 'direccion'
@@ -424,7 +425,7 @@ print("------------------------------ Se crea la capa -municipio dissolve- -----
 
 # ** Dissolve Municipio
 
-capa_municipio_dissolve = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\Local_BD_PGAR.gdb\municipio_dissolve"
+capa_municipio_dissolve = r"D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\Local_BD_PGAR.gdb\municipio_dissolve"
 nombre_capa_salida_municipio = 'municipio'
 ruta_capa_salida = os.path.join(ruta_bd,nombre_capa_salida_municipio)
 
@@ -439,7 +440,7 @@ print("____________________ INICIA _5_PGAR_Construccion_Tabla_r_Capa_Municipio _
 
 # ** Corrección capas asociadas al temario Código 12: Avenida Torrencial
 
-ruta_capas_w_municipio = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\Local_BD_PGAR.gdb"
+ruta_capas_w_municipio = r"D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\Local_BD_PGAR.gdb"
 
 arcpy.env.workspace = ruta_capas_w_municipio
 
@@ -475,7 +476,7 @@ for capas_w_mpio in arcpy.ListFeatureClasses(feature_dataset = dataset_intersect
         
 # ** Lectura de la tabla previa -municipio-
 
-capa_municipio = r'C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\Local_BD_PGAR.gdb\municipio'
+capa_municipio = r'D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\Local_BD_PGAR.gdb\municipio'
 df_municipio = pd.DataFrame.spatial.from_featureclass(capa_municipio)
 
 # ** Unificación Tabla -relación_capa_municipio-
@@ -532,7 +533,7 @@ print("____________________ INICIA _6_PGAR_Construccion_Capa_Cuenca ____________
 
 # ** Modificación de la capa -Cuenca Escala 1:25.000- a cuenca
 
-ruta_capa_cuenca = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\Local_BD_PGAR.gdb\_3_2_Cuencas_escala_1_25000_CAR"
+ruta_capa_cuenca = r"D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\Local_BD_PGAR.gdb\_3_2_Cuencas_escala_1_25000_CAR"
 
 df_cuenca = pd.DataFrame.spatial.from_featureclass(ruta_capa_cuenca)
 # Se implementa .loc para evitar alertas en la modificación del dataframe
@@ -551,7 +552,7 @@ df_cuenca_columnas_estandarizadas.loc[:, 'codigo_cuenca'] = df_cuenca_columnas_e
 # ** Exportar DF a Feature Class
 
 nombre_capa_cuenca = 'cuenca'
-ruta_bd = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\Local_BD_PGAR.gdb"
+ruta_bd = r"D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\Local_BD_PGAR.gdb"
 ruta_capa_cuenca = os.path.join(ruta_bd, nombre_capa_cuenca)
 df_cuenca_columnas_estandarizadas.spatial.to_featureclass(location=ruta_capa_cuenca)
 print("------------------------------ Se crea la capa -cuenca- ------------------------------")
@@ -564,16 +565,16 @@ print("____________________ INICIA _7_PGAR_Construccion_r_Municipio_Cuenca _____
 
 # ** Generación del DF
 
-ruta_capa_municipio_cuenca = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\Local_BD_PGAR.gdb\Interseccion_Municipio\_3_2_Cuencas_escala_1_25000_CAR_Intersect_Mpio"
+ruta_capa_municipio_cuenca = r"D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\Local_BD_PGAR.gdb\Interseccion_Municipio\_3_2_Cuencas_escala_1_25000_CAR_Intersect_Mpio"
 
 df_municipio_cuenca = pd.DataFrame.spatial.from_featureclass(ruta_capa_municipio_cuenca)
 
 # ** Preparación de nueva llave principal para la capa Municipio (dificultad 11001, Bogotá Urbana-Rural)
 
-capa_municipio = r'C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\Local_BD_PGAR.gdb\municipio'
+capa_municipio = r'D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\Local_BD_PGAR.gdb\municipio'
 df_municipio = pd.DataFrame.spatial.from_featureclass(capa_municipio)
 
-tabla_direccion = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\Local_BD_PGAR.gdb\tbl_direccion"
+tabla_direccion = r"D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\Local_BD_PGAR.gdb\tbl_direccion"
 df_direccion = pd.DataFrame.spatial.from_table(tabla_direccion)
 
 join_municipio_direccion = pd.merge(df_municipio, df_direccion, how='inner',left_on='codigo_direccion', right_on='codigo_direccion')
@@ -633,7 +634,7 @@ print("____________________ FINALIZA _7_PGAR_Construccion_r_Municipio_Cuenca ___
 
 print("____________________ INICIA _8_PGAR_Construccion_Tabla_Departamento ____________________")
 
-ruta_capa_jurisdiccion = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\Local_BD_PGAR.gdb\_6_1_Jurisdiccion_CAR"
+ruta_capa_jurisdiccion = r"D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\Local_BD_PGAR.gdb\_6_1_Jurisdiccion_CAR"
 
 df_jurisdiccion = pd.DataFrame.spatial.from_featureclass(ruta_capa_jurisdiccion)
 # Se implementa .loc para evitar alertas en la modificación del dataframe
@@ -658,7 +659,7 @@ df_departamentos_unificados_completa = df_departamentos_unificados.reset_index()
 # Se estandariza la tabla final
 df_departamentos = df_departamentos_unificados_completa[['codigo_departamento','nombre_departamento']]
 
-ruta_bd = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\Local_BD_PGAR.gdb"
+ruta_bd = r"D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\Local_BD_PGAR.gdb"
 
 # --- PREPARACIÓN DEPARTAMENTO ---
 nombre_capa_departamento = 'tbl_departamento'
@@ -674,8 +675,8 @@ print("____________________ INICIA _9_PGAR_Estandarizacion_Capas_Registros _____
 
 # ** Generación de DF
 
-ruta_bd = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\Local_BD_PGAR.gdb"
-ruta_capa = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\Local_BD_PGAR.gdb\tbl_capa"
+ruta_bd = r"D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\Local_BD_PGAR.gdb"
+ruta_capa = r"D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\Local_BD_PGAR.gdb\tbl_capa"
 
 # Construcción del diccionario a partir de la tabla: Capa
 df_capa = pd.DataFrame.spatial.from_table(ruta_capa)
@@ -731,8 +732,8 @@ print("____________________ INICIA _10_PGAR_Modelo_Inventario __________________
 
 # ** Gestión de BD
 
-arcpy.env.workspace = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR"
-ruta_gdb_inventario = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.gdb"
+arcpy.env.workspace = r"D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR"
+ruta_gdb_inventario = r"D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.gdb"
 
 if arcpy.Exists(ruta_gdb_inventario):
     print("------ La BD SDE PGAR_Inventario Existe ------")
@@ -741,8 +742,8 @@ else:
     
 # ** Gestión de Datasets
 
-ruta_tbl_tematica = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\Local_BD_PGAR.gdb\tbl_tematica"
-sistema_referencia_inventario = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\Local_BD_PGAR.gdb\municipio"
+ruta_tbl_tematica = r"D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\Local_BD_PGAR.gdb\tbl_tematica"
+sistema_referencia_inventario = r"D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\Local_BD_PGAR.gdb\municipio"
 arcpy.env.workspace = ruta_gdb_inventario
 
 lista_tematica = []
@@ -759,7 +760,7 @@ for nuevos_dataset in arcpy.ListDatasets():
     print("Se borran los nuevos datasets, entre ellos {0}".format(nuevos_dataset))
  
 for dataset in lista_tematica:
-    ruta_dataset = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.gdb" + "\\" + dataset
+    ruta_dataset = r"D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.gdb" + "\\" + dataset
     if arcpy.Exists(ruta_dataset):
         print("El Feature DataFrame {0}, existe".format(dataset))
         for capa in arcpy.ListFeatureClasses(feature_dataset=dataset):
@@ -779,7 +780,7 @@ for tabla in arcpy.ListTables():
     
 # ** Migración de registros .gdb - .sde
 
-ruta_origen = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\Local_BD_PGAR.gdb"
+ruta_origen = r"D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\Local_BD_PGAR.gdb"
 arcpy.env.workspace = ruta_origen
 lista_capas_no_exentas = []
 lista_capas_exentas = []
@@ -901,7 +902,7 @@ print("____________________ FINALIZA _10_PGAR_Modelo_Inventario ________________
 
 print("____________________ INICIA _11_1_PGAR_AnalisisCapasAVR ____________________")
 
-ruta_bd = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.gdb"
+ruta_bd = r"D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.gdb"
 arcpy.env.workspace = ruta_bd
 
 capa_riego_rural = ['Riesgo_Urbano_Inundacion','Riesgo_Rural_Incendio','Riesgo_Rural_Remocion_Masa']
@@ -993,7 +994,7 @@ print("____________________ INICIA _12_PGAR_Migracion_A_SDE ____________________
 
 # ** Borrado de capas, tablas y relaciones en la SDE
 
-ruta_sde = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.sde"
+ruta_sde = r"D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.sde"
 arcpy.env.workspace = ruta_sde
 # Listas
 dataframes = arcpy.ListDatasets()
@@ -1012,7 +1013,7 @@ for tabla in tablas:
     arcpy.Delete_management(tabla)
     print("Se borra capa {0}".format(tabla))
     
-ruta_filegdb = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.gdb"
+ruta_filegdb = r"D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.gdb"
 arcpy.env.workspace = ruta_filegdb
 
 # ? Listado de datasets
@@ -1041,7 +1042,7 @@ for tablas in arcpy.ListTables():
     listado_rutas_tablas.append(ruta_tablas_o_ds)
     
 # ** Toma el sistema de referencia de una capa en específico de la base de datos
-ruta_capa_src = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.gdb\municipio"
+ruta_capa_src = r"D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.gdb\municipio"
 
 for dataset_a_crear in lista_datasets:
     arcpy.management.CreateFeatureDataset(ruta_sde, dataset_a_crear, spatial_reference = ruta_capa_src)
@@ -1078,11 +1079,11 @@ print("____________________ INICIA _13_PGAR_Construccion_Relaciones ____________
 
 # !! RELACIONES SOBRE LA LOCAL
 
-arcpy.env.workspace = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.gdb"
+arcpy.env.workspace = r"D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.gdb"
 
-feature_municipio = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.gdb\municipio"
-tabla_capa = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.gdb\tbl_capa"
-tabla_cuenca = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.gdb\cuenca"
+feature_municipio = r"D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.gdb\municipio"
+tabla_capa = r"D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.gdb\tbl_capa"
+tabla_cuenca = r"D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.gdb\cuenca"
 
 # ********************** Relación Municipio - Capa **********************
 # - Creación de la estrucutura de la relación
@@ -1092,7 +1093,7 @@ arcpy.management.CreateRelationshipClass(tabla_capa, feature_municipio, r_munici
 print("Creada relación: {0}".format(r_municipio_capa))
 
 # - Creación de la vista de tabla
-ruta_csv_relacion_municipio_capa = r"C:\Users\rodian.saby\OneDrive\Documentos\docsProyectos\3.PGAR\Resultados\2.Py\r_municipio_capa.csv"
+ruta_csv_relacion_municipio_capa = r"D:\PUBLIC\PGAR\Resultados\2.Py\r_municipio_capa.csv"
 
 # - Unificación de registros
 arcpy.Append_management(ruta_csv_relacion_municipio_capa, r_municipio_capa, "NO_TEST")
@@ -1106,16 +1107,16 @@ arcpy.management.CreateRelationshipClass(tabla_cuenca, feature_municipio, r_muni
 print("Creada relación: {0}".format(r_municipio_cuenca))
 
 # - Creación de la vista de tabla
-ruta_csv_relacion_municipio_cuenca = r"C:\Users\rodian.saby\OneDrive\Documentos\docsProyectos\3.PGAR\Resultados\2.Py\r_municipio_cuenca.csv"
+ruta_csv_relacion_municipio_cuenca = r"D:\PUBLIC\PGAR\Resultados\2.Py\r_municipio_cuenca.csv"
 
 # - Unificación de registros
 arcpy.Append_management(ruta_csv_relacion_municipio_cuenca, r_municipio_cuenca, "NO_TEST")
 print(" - Se incorporan los registros de la relación: {0}".format(r_municipio_cuenca))
 
-tabla_tematica = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.gdb\tbl_tematica"
-tabla_direccion = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.gdb\direccion"
-tabla_departamento = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.gdb\tbl_departamento"
-tabla_fuente = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.gdb\tbl_fuentes"
+tabla_tematica = r"D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.gdb\tbl_tematica"
+tabla_direccion = r"D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.gdb\direccion"
+tabla_departamento = r"D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.gdb\tbl_departamento"
+tabla_fuente = r"D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.gdb\tbl_fuentes"
 r_capa_tematica = "r_capa_tematica"
 r_direccion_municipio = "r_direccion_municipio"
 r_municipio_departamento = "r_municipio_departamento"
@@ -1141,8 +1142,8 @@ arcpy.management.CreateRelationshipClass(tabla_fuente, tabla_capa, r_capa_fuente
                                          "NONE", 'ONE_TO_MANY', "NONE", 'codigo_fuente', 'codigo_fuente')
 print("Creada relación: {0}".format(r_capa_fuentes))
 
-arcpy.env.workspace = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.gdb"
-tabla_capa = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.gdb\tbl_capa"
+arcpy.env.workspace = r"D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.gdb"
+tabla_capa = r"D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.gdb\tbl_capa"
 
 # Proceso realizado en el archivo _9_...
 for datasets in arcpy.ListDatasets():
@@ -1163,11 +1164,11 @@ for datasets in arcpy.ListDatasets():
             
 # !! RELACIONES SOBRE LA EMPRESARIAL
 
-arcpy.env.workspace = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.sde"
+arcpy.env.workspace = r"D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.sde"
 
-feature_municipio = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.sde\municipio"
-tabla_capa = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.sde\tbl_capa"
-tabla_cuenca = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.sde\cuenca"
+feature_municipio = r"D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.sde\municipio"
+tabla_capa = r"D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.sde\tbl_capa"
+tabla_cuenca = r"D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.sde\cuenca"
 
 # ********************** Relación Municipio - Capa **********************
 # - Creación de la estrucutura de la relación
@@ -1177,7 +1178,7 @@ arcpy.management.CreateRelationshipClass(tabla_capa, feature_municipio, r_munici
 print("Creada relación: {0}".format(r_municipio_capa))
 
 # - Creación de la vista de tabla
-ruta_csv_relacion_municipio_capa = r"C:\Users\rodian.saby\OneDrive\Documentos\docsProyectos\3.PGAR\Resultados\2.Py\r_municipio_capa.csv"
+ruta_csv_relacion_municipio_capa = r"D:\PUBLIC\PGAR\Resultados\2.Py\r_municipio_capa.csv"
 
 # - Unificación de registros
 arcpy.Append_management(ruta_csv_relacion_municipio_capa, r_municipio_capa, "NO_TEST")
@@ -1191,16 +1192,16 @@ arcpy.management.CreateRelationshipClass(tabla_cuenca, feature_municipio, r_muni
 print("Creada relación: {0}".format(r_municipio_cuenca))
 
 # - Creación de la vista de tabla
-ruta_csv_relacion_municipio_cuenca = r"C:\Users\rodian.saby\OneDrive\Documentos\docsProyectos\3.PGAR\Resultados\2.Py\r_municipio_cuenca.csv"
+ruta_csv_relacion_municipio_cuenca = r"D:\PUBLIC\PGAR\Resultados\2.Py\r_municipio_cuenca.csv"
 
 # - Unificación de registros
 arcpy.Append_management(ruta_csv_relacion_municipio_cuenca, r_municipio_cuenca, "NO_TEST")
 print(" - Se incorporan los registros de la relación: {0}".format(r_municipio_cuenca))
 
-tabla_tematica = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.sde\tbl_tematica"
-tabla_direccion = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.sde\direccion"
-tabla_departamento = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.sde\tbl_departamento"
-tabla_fuente = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.sde\tbl_fuentes"
+tabla_tematica = r"D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.sde\tbl_tematica"
+tabla_direccion = r"D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.sde\direccion"
+tabla_departamento = r"D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.sde\tbl_departamento"
+tabla_fuente = r"D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.sde\tbl_fuentes"
 r_capa_tematica = "r_capa_tematica"
 r_direccion_municipio = "r_direccion_municipio"
 r_municipio_departamento = "r_municipio_departamento"
@@ -1226,8 +1227,8 @@ arcpy.management.CreateRelationshipClass(tabla_fuente, tabla_capa, r_capa_fuente
                                          "NONE", 'ONE_TO_MANY', "NONE", 'codigo_fuente', 'codigo_fuente')
 print("Creada relación: {0}".format(r_capa_fuentes))
 
-arcpy.env.workspace = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.sde"
-tabla_capa = r"C:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.sde\tbl_capa"
+arcpy.env.workspace = r"D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.sde"
+tabla_capa = r"D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.sde\tbl_capa"
 
 # Proceso realizado en el archivo _9_...
 for datasets in arcpy.ListDatasets():

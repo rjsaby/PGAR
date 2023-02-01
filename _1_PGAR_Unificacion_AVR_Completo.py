@@ -8,17 +8,17 @@ analisis_vulnerabilidad_riesgo = ['_10_Analisis_Vulnerabilidad_Riesgo_Inundacion
 
 for avr in analisis_vulnerabilidad_riesgo:
 
-    ruta_geojson = 'C:/PUBLIC/PGAR/Insumos/Capas_Geograficas/' + avr
-    arcpy.env.workspace = r"C:/PUBLIC/PGAR/Insumos/Capas_Geograficas/" + avr + "/" + avr + ".gdb"
+    ruta_geojson = 'D:/PUBLIC/PGAR/Insumos/Capas_Geograficas/' + avr
+    arcpy.env.workspace = r"D:/PUBLIC/PGAR/Insumos/Capas_Geograficas/" + avr + "/" + avr + ".gdb"
 
-    ruta_vulnerabilidad_urbana = r"C:/PUBLIC/PGAR/Insumos/Capas_Geograficas/" + avr + "\\" + avr + ".gdb" + "\\Vulnerabilidad_Urbana"
-    ruta_vulnerabilidad_rural = r"C:/PUBLIC/PGAR/Insumos/Capas_Geograficas/" + avr + "\\" + avr + ".gdb" + "\\Vulnerabilidad_Rural"
+    ruta_vulnerabilidad_urbana = r"D:/PUBLIC/PGAR/Insumos/Capas_Geograficas/" + avr + "\\" + avr + ".gdb" + "\\Vulnerabilidad_Urbana"
+    ruta_vulnerabilidad_rural = r"D:/PUBLIC/PGAR/Insumos/Capas_Geograficas/" + avr + "\\" + avr + ".gdb" + "\\Vulnerabilidad_Rural"
 
-    ruta_amenaza_urbano = r"C:/PUBLIC/PGAR/Insumos/Capas_Geograficas/" + avr + "\\" + avr + ".gdb" + "\\Amenaza_Urbano"
-    ruta_amenaza_rural = r"C:/PUBLIC/PGAR/Insumos/Capas_Geograficas/" + avr + "\\" + avr + ".gdb" + "\\Amenaza_Rural"
+    ruta_amenaza_urbano = r"D:/PUBLIC/PGAR/Insumos/Capas_Geograficas/" + avr + "\\" + avr + ".gdb" + "\\Amenaza_Urbano"
+    ruta_amenaza_rural = r"D:/PUBLIC/PGAR/Insumos/Capas_Geograficas/" + avr + "\\" + avr + ".gdb" + "\\Amenaza_Rural"
 
-    ruta_riesgo_urbano = r"C:/PUBLIC/PGAR/Insumos/Capas_Geograficas/" + avr + "\\" + avr + ".gdb" + "\\Riesgo_Urbano"
-    ruta_riesgo_rural = r"C:/PUBLIC/PGAR/Insumos/Capas_Geograficas/" + avr + "\\" + avr + ".gdb" + "\\Riesgo_Rural"
+    ruta_riesgo_urbano = r"D:/PUBLIC/PGAR/Insumos/Capas_Geograficas/" + avr + "\\" + avr + ".gdb" + "\\Riesgo_Urbano"
+    ruta_riesgo_rural = r"D:/PUBLIC/PGAR/Insumos/Capas_Geograficas/" + avr + "\\" + avr + ".gdb" + "\\Riesgo_Rural"
 
     # Creación de Base de Datos
     if arcpy.Exists(arcpy.env.workspace):
