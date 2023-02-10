@@ -9,7 +9,7 @@ from arcgis.features import GeoAccessor, GeoSeriesAccessor
 
 arcpy.env.overwriteOutput = True
 
-# ? _2_PGAR_Construccion_Inventario
+# # ? _2_PGAR_Construccion_Inventario
 
 print("____________________ INICIA _2_PGAR_Construccion_Inventario ____________________")
 
@@ -574,8 +574,8 @@ df_municipio_cuenca = pd.DataFrame.spatial.from_featureclass(ruta_capa_municipio
 capa_municipio = r'D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\Local_BD_PGAR.gdb\municipio'
 df_municipio = pd.DataFrame.spatial.from_featureclass(capa_municipio)
 
-tabla_direccion = r"D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\Local_BD_PGAR.gdb\tbl_direccion"
-df_direccion = pd.DataFrame.spatial.from_table(tabla_direccion)
+tabla_direccion = r"D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\Local_BD_PGAR.gdb\direccion"
+df_direccion = pd.DataFrame.spatial.from_featureclass(tabla_direccion)
 
 join_municipio_direccion = pd.merge(df_municipio, df_direccion, how='inner',left_on='codigo_direccion', right_on='codigo_direccion')
 
@@ -628,7 +628,7 @@ nombre_csv_municipio_cuenca = 'r_municipio_cuenca.csv'
 df_r_municipio_cuenca.to_csv(nombre_csv_municipio_cuenca, index = False, encoding = 'UTF-8')
 print("------------------------------- Se exporta el .csv: -r_municipio_cuenca- -------------------------------")
 
-print("____________________ FINALIZA _7_PGAR_Construccion_r_Municipio_Cuenca ____________________")
+# print("____________________ FINALIZA _7_PGAR_Construccion_r_Municipio_Cuenca ____________________")
 
 # ? _8_PGAR_Construccion_Tabla_Departamento
 
@@ -1073,7 +1073,7 @@ for rutas in listado_rutas_tablas:
 
 print("____________________ FINALIZA _12_PGAR_Migracion_A_SDE ____________________")
 
-# ? _13_PGAR_Construccion_Relaciones
+# # ? _13_PGAR_Construccion_Relaciones
 
 print("____________________ INICIA _13_PGAR_Construccion_Relaciones ____________________")
 
