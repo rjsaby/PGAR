@@ -34,26 +34,71 @@ for directorio in nombre_directorios:
 nombre_campo_tematico = 'codigo_tematica'
 
 # ? Parte del desarrollo, que por lo pronto, si o si se debe modificar manualmente
-clasificacion_tematica = {'_1_POMCA': 1,
-                          '_2_Cambio_Climatico': 2,
-                          '_3_Cuencas_Hidrograficas': 3,
-                          '_4_Suelos': 4,
-                          '_5_Areas_Protegidas': 5,
+# clasificacion_tematica = {'_1_POMCA': 1,
+#                           '_2_Cambio_Climatico': 2,
+#                           '_3_Cuencas_Hidrograficas': 3,
+#                           '_4_Suelos': 4,
+#                           '_5_Areas_Protegidas': 5,
+#                           '_6_Jurisdiccion_CAR': 6,
+#                           '_7_Rondas': 7,
+#                           '_8_Agua_Subterranea': 8,
+#                           '_9_Paramos': 9,
+#                           '_10_Analisis_Vulnerabilidad_Riesgo_Inundacion': 10,
+#                           '_11_Analisis_Vulnerabilidad_Riesgo_Incendio': 11,
+#                           '_12_Analisis_Vulnerabilidad_Riesgo_Avenida_Torrencial': 12,
+#                           '_13_Analisis_Vulnerabilidad_Riesgo_Remocion_Masa': 13,
+#                           '_14_Ecosistema':14,
+#                           '_15_Licencias_Ambientales':15,
+#                           '_16_Infraestuctura':16,
+#                           '_17_Desarrollo_Rural': 17,
+#                           '_18_Incendios':18,
+#                           '_19_Geologia_Geomorfologia':19,
+#                           '_20_Biodiversidad':20,
+#                           '_21_Geologia':21,
+#                           '_22_Geomorfologia':22,
+#                           '_23_Politico_administrativo':23,
+#                           '_24_Suelos':24,
+#                           '_25_Recurso_hidrico_superficial':25,
+#                           '_26_Clima':26,
+#                           '_27_Biotico':27,
+#                           '_28_Economico':28,
+#                           '_29_Sociocultural':29,
+#                           '_30_Indices':30,
+#                           '_31_Sintesis_ambiental':31,
+#                           '_32_Areas_reglamentacion_especial':32,
+#                           '_33_Gestion_riesgo':33,
+#                           '_34_Hidrogeologia':34,
+#                           '_35_Proyecto':35,
+#                           '_36_Analisis_funcional':36,
+#                           '_37_Indices_2027':37,
+#                           '_38_Areas_ecosistemas_estrategicos':38,
+#                           '_39_Perfiles_geologicos':39,
+#                           '_40_Perfiles_geomorfologicos':40,
+#                           '_41_Zonificacion_pomca':41}
+
+clasificacion_tematica = {'_3_Cuencas_Hidrograficas': 3,
                           '_6_Jurisdiccion_CAR': 6,
-                          '_7_Rondas': 7,
-                          '_8_Agua_Subterranea': 8,
-                          '_9_Paramos': 9,
-                          '_10_Analisis_Vulnerabilidad_Riesgo_Inundacion': 10,
-                          '_11_Analisis_Vulnerabilidad_Riesgo_Incendio': 11,
-                          '_12_Analisis_Vulnerabilidad_Riesgo_Avenida_Torrencial': 12,
-                          '_13_Analisis_Vulnerabilidad_Riesgo_Remocion_Masa': 13,
-                          '_14_Ecosistema':14,
-                          '_15_Licencias_Ambientales':15,
-                          '_16_Infraestuctura':16,
-                          '_17_Desarrollo_Rural': 17,
-                          '_18_Incendios':18,
-                          '_19_Geologia_Geomorfologia':19,
-                          '_20_Biodiversidad':20}
+                          '_21_Geologia':21,
+                          '_22_Geomorfologia':22,
+                          '_23_Politico_administrativo':23,
+                          '_24_Suelos':24,
+                          '_25_Recurso_hidrico_superficial':25,
+                          '_26_Clima':26,
+                          '_27_Biotico':27,
+                          '_28_Economico':28,
+                          '_29_Sociocultural':29,
+                          '_30_Indices':30,
+                          '_31_Sintesis_ambiental':31,
+                          '_32_Areas_reglamentacion_especial':32,
+                          '_33_Gestion_riesgo':33,
+                          '_34_Hidrogeologia':34,
+                          '_35_Proyecto':35,
+                          '_36_Analisis_funcional':36,
+                          '_37_Indices_2027':37,
+                          '_38_Areas_ecosistemas_estrategicos':38,
+                          '_39_Perfiles_geologicos':39,
+                          '_40_Perfiles_geomorfologicos':40,
+                          '_41_Zonificacion_pomca':41}
 
 for espacio_trabajo in rutas_workspace:
     arcpy.env.workspace = espacio_trabajo
@@ -698,7 +743,7 @@ for elemento in arcpy.ListFeatureClasses():
     for capa_a_no_actualizar in capas_modelo:
         if elemento != capa_a_no_actualizar:
             # Aquí se puede modificar el tipo de campo para el -codigo_capa-
-            arcpy.management.AddField(elemento, nombre_campo_codigo_capa, 'LONG', field_alias = 'Codigo Capa')
+            arcpy.management.AddField(elemento, nombre_campo_codigo_capa, 'DOUBLE', field_alias = 'Codigo Capa')
             for llave, valor in diccionario_capas_definitivo.items():
                 if elemento == valor:
                     arcpy.management.CalculateField(elemento, nombre_campo_codigo_capa, int(llave), 'PYTHON3')
@@ -1146,12 +1191,12 @@ arcpy.env.workspace = r"D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.gdb
 tabla_capa = r"D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.gdb\tbl_capa"
 
 # Proceso realizado en el archivo _9_...
-for datasets in arcpy.ListDatasets():
-    for capas in arcpy.ListFeatureClasses(feature_dataset=datasets):
-            arcpy.management.AlterField(capas, 'codigo_capa', 'codigo_capa_borrar')
-            arcpy.management.AddField(capas, 'codigo_capa', 'DOUBLE', field_alias = 'Código Capa')
-            arcpy.management.CalculateField(capas, 'codigo_capa', '!codigo_capa_borrar!')
-            print("-Código Capa- actualizado para: {0}".format(capas))
+# for datasets in arcpy.ListDatasets():
+#     for capas in arcpy.ListFeatureClasses(feature_dataset=datasets):
+#             arcpy.management.AlterField(capas, 'codigo_capa', 'codigo_capa_borrar')
+#             arcpy.management.AddField(capas, 'codigo_capa', 'DOUBLE', field_alias = 'Código Capa')
+#             arcpy.management.CalculateField(capas, 'codigo_capa', '!codigo_capa_borrar!')
+#             print("-Código Capa- actualizado para: {0}".format(capas))
             
 for datasets in arcpy.ListDatasets():
     for capas in arcpy.ListFeatureClasses(feature_dataset=datasets):        
@@ -1231,12 +1276,12 @@ arcpy.env.workspace = r"D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.sde
 tabla_capa = r"D:\PUBLIC\PGAR\Resultados\4.PRO\PGAR\PGAR_Inventario.sde\tbl_capa"
 
 # Proceso realizado en el archivo _9_...
-for datasets in arcpy.ListDatasets():
-    for capas in arcpy.ListFeatureClasses(feature_dataset=datasets):
-            arcpy.management.AlterField(capas, 'codigo_capa', 'codigo_capa_borrar')
-            arcpy.management.AddField(capas, 'codigo_capa', 'DOUBLE', field_alias = 'Código Capa')
-            arcpy.management.CalculateField(capas, 'codigo_capa', '!codigo_capa_borrar!')
-            print("-Código Capa- actualizado para: {0}".format(capas))
+# for datasets in arcpy.ListDatasets():
+#     for capas in arcpy.ListFeatureClasses(feature_dataset=datasets):
+#             arcpy.management.AlterField(capas, 'codigo_capa', 'codigo_capa_borrar')
+#             arcpy.management.AddField(capas, 'codigo_capa', 'DOUBLE', field_alias = 'Código Capa')
+#             arcpy.management.CalculateField(capas, 'codigo_capa', '!codigo_capa_borrar!')
+#             print("-Código Capa- actualizado para: {0}".format(capas))
             
 for datasets in arcpy.ListDatasets():
     for capas in arcpy.ListFeatureClasses(feature_dataset=datasets):        
